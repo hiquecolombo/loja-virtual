@@ -1,12 +1,12 @@
 package hique.dev.lojavirtual.enums;
 
-public enum TipoEndereco {
+public enum StatusContaPagar {
 
-	COBRANCA("Cobrança"), ENTREGA("Entrega");
+	COBRANCA("Pagar"), VENCIDA("Vencida"), ABERTA("Aberta"), QUITADA("Quitada"), RENEGOCIADA("Renegociada");
 
 	private String descricao;
 
-	TipoEndereco(String descricao) {
+	private StatusContaPagar(String descricao) {
 		this.descricao = descricao;
 	}
 
