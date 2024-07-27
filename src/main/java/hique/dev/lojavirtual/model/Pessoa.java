@@ -36,6 +36,9 @@ public abstract class Pessoa implements Serializable {
 	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<NotaFiscalCompra> notaFiscalCompra = new ArrayList<NotaFiscalCompra>();
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -74,6 +77,14 @@ public abstract class Pessoa implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public List<NotaFiscalCompra> getNotaFiscalCompra() {
+		return notaFiscalCompra;
+	}
+
+	public void setNotaFiscalCompra(List<NotaFiscalCompra> notaFiscalCompra) {
+		this.notaFiscalCompra = notaFiscalCompra;
 	}
 
 	@Override
