@@ -2,22 +2,18 @@ package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -47,6 +43,7 @@ public class VendaCompraLojaVirtual implements Serializable {
 	@JoinColumn(name = "endereco_cobranca_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_cobranca_fk"))
 	private Endereco enderecoCobranca;
 
+	@Column(nullable = false)
 	private BigDecimal valorCompra;
 
 	private BigDecimal valorDesconto;
@@ -60,24 +57,22 @@ public class VendaCompraLojaVirtual implements Serializable {
 	private NotaFiscalVenda notaFiscalVenda;
 
 	@ManyToOne(targetEntity = CupomDesconto.class)
-	@JoinColumn(name = "cupom_desconto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desconto_fk"))
+	@JoinColumn(name = "cupom_desconto_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desconto_fk"))
 	private CupomDesconto cupomDesconto;
 
+	@Column(nullable = false)
 	private BigDecimal valorFrete;
 
+	@Column(nullable = false)
 	private Integer diasEntrega;
 
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataVenda;
 
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
-
-	@OneToMany(mappedBy = "vendaCompraLojaVirtual", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<StatusRastreio> statusRastreio = new ArrayList<StatusRastreio>();
-
-	@OneToMany(mappedBy = "vendaCompraLojaVirtual", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ItemVendaLoja> itemVendaLoja = new ArrayList<ItemVendaLoja>();
 
 	public Long getId() {
 		return id;
@@ -181,22 +176,6 @@ public class VendaCompraLojaVirtual implements Serializable {
 
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
-	}
-
-	public List<StatusRastreio> getStatusRastreio() {
-		return statusRastreio;
-	}
-
-	public void setStatusRastreio(List<StatusRastreio> statusRastreio) {
-		this.statusRastreio = statusRastreio;
-	}
-
-	public List<ItemVendaLoja> getItemVendaLoja() {
-		return itemVendaLoja;
-	}
-
-	public void setItemVendaLoja(List<ItemVendaLoja> itemVendaLoja) {
-		this.itemVendaLoja = itemVendaLoja;
 	}
 
 	@Override

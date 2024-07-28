@@ -26,16 +26,19 @@ public class NotaFiscalVenda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal_venda")
 	private Long id;
 
-	private String numoro;
+	@Column(nullable = false)
+	private String numero;
 
+	@Column(nullable = false)
 	private String serie;
 
+	@Column(nullable = false)
 	private String tipo;
 
-	@Column(columnDefinition = "text")
+	@Column(columnDefinition = "text", nullable = false)
 	private String xml;
 
-	@Column(columnDefinition = "text")
+	@Column(columnDefinition = "text", nullable = false)
 	private String pdf;
 
 	@OneToOne(targetEntity = VendaCompraLojaVirtual.class)
@@ -50,12 +53,12 @@ public class NotaFiscalVenda implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumoro() {
-		return numoro;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setNumoro(String numoro) {
-		this.numoro = numoro;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public String getSerie() {

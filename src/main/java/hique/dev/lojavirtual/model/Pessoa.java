@@ -1,19 +1,19 @@
 package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -27,23 +27,18 @@ public abstract class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_pessoa")
 	private Long id;
 
+	@Column(nullable = false)
 	private String nome;
 
+	@Column(nullable = false)
 	private String email;
 
+	@Column(nullable = false)
 	private String telefone;
 
-	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
-
-	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<NotaFiscalCompra> notaFiscalCompra = new ArrayList<NotaFiscalCompra>();
-
-	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<VendaCompraLojaVirtual> vendaCompraLojaVirtual = new ArrayList<VendaCompraLojaVirtual>();
-
-	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<AvaliacaoProduto> avaliacaoProduto = new ArrayList<AvaliacaoProduto>();
+	@OneToOne(targetEntity = Usuario.class)
+	@JoinColumn(name = "usuario_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_fk"))
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -77,36 +72,12 @@ public abstract class Pessoa implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
-	public List<NotaFiscalCompra> getNotaFiscalCompra() {
-		return notaFiscalCompra;
-	}
-
-	public void setNotaFiscalCompra(List<NotaFiscalCompra> notaFiscalCompra) {
-		this.notaFiscalCompra = notaFiscalCompra;
-	}
-
-	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtual() {
-		return vendaCompraLojaVirtual;
-	}
-
-	public void setVendaCompraLojaVirtual(List<VendaCompraLojaVirtual> vendaCompraLojaVirtual) {
-		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
-	}
-
-	public List<AvaliacaoProduto> getAvaliacaoProduto() {
-		return avaliacaoProduto;
-	}
-
-	public void setAvaliacaoProduto(List<AvaliacaoProduto> avaliacaoProduto) {
-		this.avaliacaoProduto = avaliacaoProduto;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

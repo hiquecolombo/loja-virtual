@@ -25,14 +25,6 @@ public class MarcaProduto implements Serializable {
 	@Column(name = "nome_desc", nullable = false)
 	private String nomeDesc;
 
-	public MarcaProduto() {
-	}
-
-	public MarcaProduto(Long id, String nomeDesc) {
-		this.id = id;
-		this.nomeDesc = nomeDesc;
-	}
-
 	public Long getId() {
 		return id;
 	}

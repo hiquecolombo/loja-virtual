@@ -2,22 +2,18 @@ package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -34,18 +30,23 @@ public class NotaFiscalCompra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal_compra")
 	private Long id;
 
+	@Column(nullable = false)
 	private String numeroNota;
 
+	@Column(nullable = false)
 	private String serieNota;
 
 	private String descricaoObservacao;
 
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;
 
+	@Column(nullable = false)
 	private BigDecimal valorIcms;
 
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCompra;
 
@@ -56,9 +57,6 @@ public class NotaFiscalCompra implements Serializable {
 	@ManyToOne(targetEntity = ContaPagar.class)
 	@JoinColumn(name = "conta_pagar_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
 	private ContaPagar contaPagar;
-
-	@OneToMany(mappedBy = "notaFiscalCompra", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<NotaItemProduto> notaItemProduto = new ArrayList<NotaItemProduto>();
 
 	public Long getId() {
 		return id;
@@ -138,14 +136,6 @@ public class NotaFiscalCompra implements Serializable {
 
 	public void setContaPagar(ContaPagar contaPagar) {
 		this.contaPagar = contaPagar;
-	}
-
-	public List<NotaItemProduto> getNotaItemProduto() {
-		return notaItemProduto;
-	}
-
-	public void setNotaItemProduto(List<NotaItemProduto> notaItemProduto) {
-		this.notaItemProduto = notaItemProduto;
 	}
 
 	@Override

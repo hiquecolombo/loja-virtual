@@ -2,18 +2,14 @@ package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -30,6 +26,7 @@ public class CupomDesconto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cupom_desconto")
 	private Long id;
 
+	@Column(nullable = false)
 	private String codDesconto;
 
 	private BigDecimal valorRealDesconto;
@@ -38,9 +35,6 @@ public class CupomDesconto implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataValidadeCupom;
-
-	@OneToMany(mappedBy = "cupomDesconto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<VendaCompraLojaVirtual> vendaCompraLojaVirtual = new ArrayList<VendaCompraLojaVirtual>();
 
 	public Long getId() {
 		return id;
@@ -80,14 +74,6 @@ public class CupomDesconto implements Serializable {
 
 	public void setDataValidadeCupom(Date dataValidadeCupom) {
 		this.dataValidadeCupom = dataValidadeCupom;
-	}
-
-	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtual() {
-		return vendaCompraLojaVirtual;
-	}
-
-	public void setVendaCompraLojaVirtual(List<VendaCompraLojaVirtual> vendaCompraLojaVirtual) {
-		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
 	}
 
 	@Override

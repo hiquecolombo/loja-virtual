@@ -2,13 +2,11 @@ package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import hique.dev.lojavirtual.enums.StatusContaPagar;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,7 +17,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -36,15 +33,19 @@ public class ContaPagar implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
 	private Long id;
 
+	@Column(nullable = false)
 	private String descricao;
 
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;
 
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusContaPagar statusContaPagar;
 
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 
@@ -58,9 +59,6 @@ public class ContaPagar implements Serializable {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_fornecedor_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fornecedor_fk"))
 	private Pessoa pessoa_fornecedor;
-
-	@OneToMany(mappedBy = "contaPagar", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<NotaFiscalCompra> notaFiscalCompra = new ArrayList<NotaFiscalCompra>();
 
 	public Long getId() {
 		return id;
@@ -132,14 +130,6 @@ public class ContaPagar implements Serializable {
 
 	public void setPessoa_fornecedor(Pessoa pessoa_fornecedor) {
 		this.pessoa_fornecedor = pessoa_fornecedor;
-	}
-
-	public List<NotaFiscalCompra> getNotaFiscalCompra() {
-		return notaFiscalCompra;
-	}
-
-	public void setNotaFiscalCompra(List<NotaFiscalCompra> notaFiscalCompra) {
-		this.notaFiscalCompra = notaFiscalCompra;
 	}
 
 	@Override

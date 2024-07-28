@@ -2,18 +2,13 @@ package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -28,25 +23,34 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
 	private Long id;
 
+	@Column(nullable = false)
 	private String tipoUnidade;
 
+	@Column(nullable = false)
 	private String nome;
 
+	@Column(nullable = false)
 	private Boolean ativo = Boolean.TRUE;
 
-	@Column(columnDefinition = "text")
+	@Column(columnDefinition = "text", nullable = false)
 	private String descricao;
 
+	@Column(nullable = false)
 	private Double peso;
 
+	@Column(nullable = false)
 	private Double altura;
 
+	@Column(nullable = false)
 	private Double largura;
 
+	@Column(nullable = false)
 	private Double profundidade;
 
+	@Column(nullable = false)
 	private BigDecimal valorVenda = BigDecimal.ZERO;
 
+	@Column(nullable = false)
 	private Integer quantidadeEstoque = 0;
 
 	private Integer quantidadeAlertaEstoque = 0;
@@ -56,18 +60,6 @@ public class Produto implements Serializable {
 	private Boolean alertaQuantidadeEstoque = Boolean.FALSE;
 
 	private Integer quantidadeClique = 0;
-
-	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<NotaItemProduto> notaItemProduto = new ArrayList<NotaItemProduto>();
-
-	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<ImagemProduto> imagemProduto = new ArrayList<ImagemProduto>();
-
-	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<ItemVendaLoja> itemVendaLoja = new ArrayList<ItemVendaLoja>();
-
-	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<AvaliacaoProduto> avaliacaoProduto = new ArrayList<AvaliacaoProduto>();
 
 	public Long getId() {
 		return id;
@@ -187,38 +179,6 @@ public class Produto implements Serializable {
 
 	public void setQuantidadeClique(Integer quantidadeClique) {
 		this.quantidadeClique = quantidadeClique;
-	}
-
-	public List<NotaItemProduto> getNotaItemProduto() {
-		return notaItemProduto;
-	}
-
-	public void setNotaItemProduto(List<NotaItemProduto> notaItemProduto) {
-		this.notaItemProduto = notaItemProduto;
-	}
-
-	public List<ImagemProduto> getImagemProduto() {
-		return imagemProduto;
-	}
-
-	public void setImagemProduto(List<ImagemProduto> imagemProduto) {
-		this.imagemProduto = imagemProduto;
-	}
-
-	public List<ItemVendaLoja> getItemVendaLoja() {
-		return itemVendaLoja;
-	}
-
-	public void setItemVendaLoja(List<ItemVendaLoja> itemVendaLoja) {
-		this.itemVendaLoja = itemVendaLoja;
-	}
-
-	public List<AvaliacaoProduto> getAvaliacaoProduto() {
-		return avaliacaoProduto;
-	}
-
-	public void setAvaliacaoProduto(List<AvaliacaoProduto> avaliacaoProduto) {
-		this.avaliacaoProduto = avaliacaoProduto;
 	}
 
 	@Override
