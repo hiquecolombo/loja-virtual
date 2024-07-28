@@ -1,5 +1,6 @@
 package hique.dev.lojavirtual.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -9,6 +10,7 @@ public class PessoaJuridica extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(nullable = false)
 	private String cnpj;
 
 	private String inscEstadual;

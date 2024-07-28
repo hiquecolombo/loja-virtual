@@ -39,13 +39,11 @@ public abstract class Pessoa implements Serializable {
 	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<NotaFiscalCompra> notaFiscalCompra = new ArrayList<NotaFiscalCompra>();
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<VendaCompraLojaVirtual> vendaCompraLojaVirtual = new ArrayList<VendaCompraLojaVirtual>();
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<AvaliacaoProduto> avaliacaoProduto = new ArrayList<AvaliacaoProduto>();
 
 	public Long getId() {
 		return id;
@@ -79,12 +77,36 @@ public abstract class Pessoa implements Serializable {
 		this.telefone = telefone;
 	}
 
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	public List<NotaFiscalCompra> getNotaFiscalCompra() {
 		return notaFiscalCompra;
 	}
 
 	public void setNotaFiscalCompra(List<NotaFiscalCompra> notaFiscalCompra) {
 		this.notaFiscalCompra = notaFiscalCompra;
+	}
+
+	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtual() {
+		return vendaCompraLojaVirtual;
+	}
+
+	public void setVendaCompraLojaVirtual(List<VendaCompraLojaVirtual> vendaCompraLojaVirtual) {
+		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+	}
+
+	public List<AvaliacaoProduto> getAvaliacaoProduto() {
+		return avaliacaoProduto;
+	}
+
+	public void setAvaliacaoProduto(List<AvaliacaoProduto> avaliacaoProduto) {
+		this.avaliacaoProduto = avaliacaoProduto;
 	}
 
 	@Override

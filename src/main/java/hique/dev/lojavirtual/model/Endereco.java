@@ -1,19 +1,24 @@
 package hique.dev.lojavirtual.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import hique.dev.lojavirtual.enums.TipoEndereco;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -45,6 +50,12 @@ public class Endereco implements Serializable {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
+
+	@OneToMany(mappedBy = "enderecoEntrega", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<VendaCompraLojaVirtual> vendaCompraLojaVirtualEntrega = new ArrayList<VendaCompraLojaVirtual>();
+
+	@OneToMany(mappedBy = "enderecoCobranca", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<VendaCompraLojaVirtual> vendaCompraLojaVirtualCobranca = new ArrayList<VendaCompraLojaVirtual>();
 
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
@@ -127,6 +138,22 @@ public class Endereco implements Serializable {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtualEntrega() {
+		return vendaCompraLojaVirtualEntrega;
+	}
+
+	public void setVendaCompraLojaVirtualEntrega(List<VendaCompraLojaVirtual> vendaCompraLojaVirtualEntrega) {
+		this.vendaCompraLojaVirtualEntrega = vendaCompraLojaVirtualEntrega;
+	}
+
+	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtualCobranca() {
+		return vendaCompraLojaVirtualCobranca;
+	}
+
+	public void setVendaCompraLojaVirtualCobranca(List<VendaCompraLojaVirtual> vendaCompraLojaVirtualCobranca) {
+		this.vendaCompraLojaVirtualCobranca = vendaCompraLojaVirtualCobranca;
 	}
 
 	@Override

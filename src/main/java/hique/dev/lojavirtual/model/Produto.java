@@ -60,6 +60,15 @@ public class Produto implements Serializable {
 	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<NotaItemProduto> notaItemProduto = new ArrayList<NotaItemProduto>();
 
+	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<ImagemProduto> imagemProduto = new ArrayList<ImagemProduto>();
+
+	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<ItemVendaLoja> itemVendaLoja = new ArrayList<ItemVendaLoja>();
+
+	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<AvaliacaoProduto> avaliacaoProduto = new ArrayList<AvaliacaoProduto>();
+
 	public Long getId() {
 		return id;
 	}
@@ -186,6 +195,30 @@ public class Produto implements Serializable {
 
 	public void setNotaItemProduto(List<NotaItemProduto> notaItemProduto) {
 		this.notaItemProduto = notaItemProduto;
+	}
+
+	public List<ImagemProduto> getImagemProduto() {
+		return imagemProduto;
+	}
+
+	public void setImagemProduto(List<ImagemProduto> imagemProduto) {
+		this.imagemProduto = imagemProduto;
+	}
+
+	public List<ItemVendaLoja> getItemVendaLoja() {
+		return itemVendaLoja;
+	}
+
+	public void setItemVendaLoja(List<ItemVendaLoja> itemVendaLoja) {
+		this.itemVendaLoja = itemVendaLoja;
+	}
+
+	public List<AvaliacaoProduto> getAvaliacaoProduto() {
+		return avaliacaoProduto;
+	}
+
+	public void setAvaliacaoProduto(List<AvaliacaoProduto> avaliacaoProduto) {
+		this.avaliacaoProduto = avaliacaoProduto;
 	}
 
 	@Override
