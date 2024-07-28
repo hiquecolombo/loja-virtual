@@ -47,6 +47,14 @@ public class FormaPagamento implements Serializable {
 		this.descricao = descricao;
 	}
 
+	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtual() {
+		return vendaCompraLojaVirtual;
+	}
+
+	public void setVendaCompraLojaVirtual(List<VendaCompraLojaVirtual> vendaCompraLojaVirtual) {
+		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

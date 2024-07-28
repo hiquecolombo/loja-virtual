@@ -82,6 +82,14 @@ public class CupomDesconto implements Serializable {
 		this.dataValidadeCupom = dataValidadeCupom;
 	}
 
+	public List<VendaCompraLojaVirtual> getVendaCompraLojaVirtual() {
+		return vendaCompraLojaVirtual;
+	}
+
+	public void setVendaCompraLojaVirtual(List<VendaCompraLojaVirtual> vendaCompraLojaVirtual) {
+		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
